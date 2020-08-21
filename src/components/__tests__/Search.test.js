@@ -14,13 +14,13 @@ describe('Search', () => {
 		expect(container.querySelector('#search')).toBeTruthy();
     });
     
-    test('Input value changes when user types', async () => {
-		// Arrange
-		const { debug, getByPlaceholderText } = render(<Search />);
-		// debug();
-        // Act
-        await userEvent.type(getByPlaceholderText('First name'), 'Hello World!');
-		// Assert
-		expect(getByPlaceholderText('First name')).toHaveValue('Hello World!');
-	});
+    // test('Input value changes when user types', async () => {
+	// 	// Arrange
+	// 	const { debug, getByPlaceholderText } = render(<Search />);
+	// 	// debug();
+    //     // Act
+    //     await userEvent.type(getByPlaceholderText('First name'), 'Hello World!');
+	// 	// Assert
+	// 	expect(getByPlaceholderText('First name')).toHaveValue('Hello World!');
+	// });
 });
