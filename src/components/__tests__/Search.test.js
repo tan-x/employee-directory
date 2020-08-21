@@ -10,6 +10,6 @@ describe('Search', () => {
 		debug();
 		// Act
 		// Assert
-		expect(container).toContainHTML(`<div>`);
+		expect(container).toContainHTML(`<input>`);
 	});
 });
