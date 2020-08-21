@@ -10,6 +10,6 @@ describe('Search', () => {
 		debug();
 		// Act
 		// Assert
-		expect(container).toContainHTML(`<input>`);
+		expect(container.querySelector('.form')).toHaveAttribute('id', 'search');
 	});
 });
