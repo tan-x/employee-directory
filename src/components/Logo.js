@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Logo() {
 	return (
-		<a href='https://www.tannermgriffin.com' target='_blank' rel='noopener'>
+		<a href='https://www.tannermgriffin.com' target='_blank' rel='noopener noreferrer'>
 			<div id='logo'>
 				<span id='fonts'>Made by t</span>
 				<svg

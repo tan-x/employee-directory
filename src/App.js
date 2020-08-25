@@ -36,11 +36,9 @@ function App() {
 		<div className='App'>
 			<Header />
 			<Search search={search} setsearch={setSearch} />
-			{search && (
-				<Fade top>
+				<Fade collapse top when={search}>
 					<h3 title='search-display'>Searching for {search}</h3>
 				</Fade>
-			)}
 			<List employees={filter} />
       <Logo />
 		</div>
