@@ -3,7 +3,7 @@ import { Form } from 'semantic-ui-react';
 
 export default function Search(props) {
 	const handleFormChange = (e) => {
-			props.setsearch(e.target.value.trim())
+			props.setsearch(e.target.value.trim().toLowerCase());
 	}
 	return (
 		<Form id='search'>

@@ -10,18 +10,26 @@ import './App.css';
 function App() {
 	const [search, setSearch] = useState('');
 	const [employees, setEmployees] = useState([]);
+	const [filter, setFilter] = useState([]);
 
 	useEffect(() => {
-		axios.get('https://randomuser.me/api/?results=200&nat=us').then((res) => {
-			// console.log(res.data.results);
-			const short = [];
-			for (let i = 0; i < 5; i++) {
-				short.push(res.data.results[i]);
-			}
-			console.log(short);
-			setEmployees(res.data.results);
-		});
-	}, []);
+		if (employees.length === 0) {
+			axios.get('https://randomuser.me/api/?results=200&nat=us').then((res) => {
+				setEmployees(res.data.results);
+				setFilter(res.data.results);
+			});
+		} else {
+			setFilter(
+				employees.filter(
+					(item) =>
+            item.name.first.toLowerCase().includes(search) ||
+            item.name.last.toLowerCase().includes(search) ||
+						item.email.includes(search) ||
+						item.phone.includes(search)
+				)
+			);
+		}
+	}, [search]);
 
 	return (
 		<div className='App'>
@@ -29,10 +37,10 @@ function App() {
 			<Search search={search} setsearch={setSearch} />
 			{search && (
 				<Fade top>
-						<h3 title='search-display'>Searching for {search}</h3>
+					<h3 title='search-display'>Searching for {search}</h3>
 				</Fade>
 			)}
-			<List employees={employees} />
+			<List employees={filter} />
 		</div>
 	);
 }

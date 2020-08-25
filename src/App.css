@@ -10,6 +10,8 @@ body #fonts{
   flex-direction: column;
   align-items: center;
   width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to bottom, rgba(218, 0, 0, 0.068), rgba(113, 0, 158, 0.055));
 }
 
 .App-logo {
@@ -63,6 +65,7 @@ h3 {
   border: 3px solid rgb(113, 0, 158);
   border-radius: 10px;
   overflow: auto;
+  background: white
 }
 
 #list-item {
