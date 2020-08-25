@@ -1,10 +1,9 @@
 import React from 'react';
 import { render, fireEvent, waitFor, screen, queries } from '@testing-library/react';
-// import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event'
 import Search from '../Search';
 
-xdescribe('Search', () => {
+describe('Search', () => {
 	test('Search form rendered', async () => {
 		// Arrange
 		const { container, debug } = render(<Search />);

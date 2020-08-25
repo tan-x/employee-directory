@@ -6,15 +6,15 @@ import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 
 function App() {
-	const [search, setSearch] = useState({ firstname: '', lastname: '' });
+	const [search, setSearch] = useState('');
 
 	return (
 		<div className='App'>
 			<Search search={search} setsearch={setSearch} />
-			{(search.firstname || search.lastname) && (
+			{search && (
 				// <Slide top>
 					<h3 title='search-display'>
-						Searching for {search.firstname} {search.lastname}
+						Searching for {search}
 					</h3>
 				// </Slide>
 			)}
