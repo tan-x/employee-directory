@@ -25,7 +25,7 @@ describe('Search', () => {
                 }
 			},
 		];
-		const { container, debug, getByTestId } = render(<List employees={dummyList} />);
+		const { container, debug, getByTestId } = render(<List employees={dummyList} order={{field: '', ascending: false}}/>);
 		// debug();
 		// Act
 		// Assert

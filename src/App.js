@@ -87,7 +87,7 @@ function App() {
       <Fade collapse top when={search}>
         <h3 title='search-display'>Searching for {search}</h3>
       </Fade>
-      <List employees={filter} sort={sort} />
+      <List employees={filter} sort={sort} order={order}/>
       <Logo />
     </div>
   );
