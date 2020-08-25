@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+body #fonts{
+	font-family: 'Montserrat' !important;
+}
+
 .App {
   text-align: center;
   display: flex;
@@ -47,4 +53,26 @@
 
 h3 {
   margin: 0!important;
+}
+
+#employee-list {
+  width: 80vw;
+  height: calc(90vh - 150px);
+  max-width: 1000px;
+  margin-top: 5px;
+  border: 3px solid rgb(113, 0, 158);
+  border-radius: 10px;
+  overflow: auto;
+}
+
+#list-item {
+  border-bottom: 1px solid grey;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center
+}
+
+h5 {
+  margin: 4px!important
 }

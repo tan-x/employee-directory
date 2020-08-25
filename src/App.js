@@ -1,38 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Search from './components/Search';
 import Header from './components/Header';
-// import Slide from 'react-reveal/Slide';
-import './App.css';
+import List from './components/List';
+import Fade from 'react-reveal/Fade';
 import 'semantic-ui-css/semantic.min.css';
+import './App.css';
 
 function App() {
 	const [search, setSearch] = useState('');
+	const [employees, setEmployees] = useState([]);
+
+	useEffect(() => {
+		axios.get('https://randomuser.me/api/?results=200&nat=us').then((res) => {
+			// console.log(res.data.results);
+			const short = [];
+			for (let i = 0; i < 5; i++) {
+				short.push(res.data.results[i]);
+			}
+			console.log(short);
+			setEmployees(res.data.results);
+		});
+	}, []);
 
 	return (
 		<div className='App'>
-      <Header />
+			<Header />
 			<Search search={search} setsearch={setSearch} />
 			{search && (
-				// <Slide top>
-					<h3 title='search-display'>
-						Searching for {search}
-					</h3>
-				// </Slide>
+				<Fade top>
+						<h3 title='search-display'>Searching for {search}</h3>
+				</Fade>
 			)}
-			{/* <header className='App-header'>
-				<img src={logo} className='App-logo' alt='logo' />
-				<p>
-					Edit <code>src/App.js</code> and save to reload.
-				</p>
-				<a
-					className='App-link'
-					href='https://reactjs.org'
-					target='_blank'
-					rel='noopener noreferrer'
-				>
-					Learn React
-				</a>
-			</header> */}
+			<List employees={employees} />
 		</div>
 	);
 }
