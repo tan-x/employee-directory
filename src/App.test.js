@@ -4,11 +4,11 @@ import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
 import App from './App';
 
-test('renders learn react link', () => {
-	const { getByText } = render(<App />);
-	const linkElement = getByText(/learn react/i);
-	expect(linkElement).toBeInTheDocument();
-});
+// test('renders learn react link', () => {
+// 	const { getByText } = render(<App />);
+// 	const linkElement = getByText(/learn react/i);
+// 	expect(linkElement).toBeInTheDocument();
+// });
 
 test('Input value changes when user types', async () => {
 	// Arrange

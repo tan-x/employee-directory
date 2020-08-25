@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import Search from './components/Search';
+import Slide from 'react-reveal/Slide';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 
@@ -11,11 +12,13 @@ function App() {
 		<div className='App'>
 			<Search search={search} setsearch={setSearch} />
 			{(search.firstname || search.lastname) && (
-				<h3 title='search-display'>
-					Searching for {search.firstname} {search.lastname}
-				</h3>
+				<Slide top>
+					<h3 title='search-display'>
+						Searching for {search.firstname} {search.lastname}
+					</h3>
+				</Slide>
 			)}
-			<header className='App-header'>
+			{/* <header className='App-header'>
 				<img src={logo} className='App-logo' alt='logo' />
 				<p>
 					Edit <code>src/App.js</code> and save to reload.
@@ -28,7 +31,7 @@ function App() {
 				>
 					Learn React
 				</a>
-			</header>
+			</header> */}
 		</div>
 	);
 }
