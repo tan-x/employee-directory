@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Search from './components/Search';
 import Header from './components/Header';
 import List from './components/List';
@@ -7,25 +8,36 @@ import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 
 function App() {
-  const [search, setSearch] = useState('');
-  
-  const employees = [
-    { name: 'Testy Tester', email: 'testy@gmail.com', number: '5551098' },
-    { name: 'Testy Tester', email: 'testy@gmail.com', number: '5551098' },
-  ]
+	const [search, setSearch] = useState('');
+	const [employees, setEmployees] = useState([]);
+
+	useEffect(() => {
+		axios.get('https://randomuser.me/api/?results=200&nat=us').then((res) => {
+      // console.log(res.data.results);
+      const short = [];
+      for (let i=0; i<5; i++) {
+        short.push(res.data.results[i])
+      }
+      console.log(short);
+      setEmployees(res.data.results);
+		});
+	}, []);
+
+	// const employees = [
+	//   { name: 'Testy Tester', email: 'testy@gmail.com', number: '5551098' },
+	//   { name: 'Testy Tester', email: 'testy@gmail.com', number: '5551098' },
+	// ]
 
 	return (
 		<div className='App'>
-      <Header />
+			<Header />
 			<Search search={search} setsearch={setSearch} />
 			{search && (
 				// <Slide top>
-					<h3 title='search-display'>
-						Searching for {search}
-					</h3>
+				<h3 title='search-display'>Searching for {search}</h3>
 				// </Slide>
 			)}
-      <List employees={employees}/>
+			<List employees={employees} />
 			{/* <header className='App-header'>
 				<img src={logo} className='App-logo' alt='logo' />
 				<p>
