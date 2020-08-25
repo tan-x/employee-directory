@@ -69,6 +69,14 @@ h3 {
   background: white
 }
 
+#sort{
+  border-bottom: 2px solid black;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 #list-item {
   border-bottom: 1px solid grey;
   width: 100%;
