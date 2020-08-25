@@ -15,13 +15,6 @@ export default function Search(props) {
 					placeholder='Search by Name, Email, or Phone'
 					onChange={handleFormChange}
 				/>
-				{/* <Form.Input
-					fluid
-					id='lastname'
-					label='Last name'
-					placeholder='Last name'
-					onChange={handleFormChange}
-				/> */}
 			</Form.Group>
 		</Form>
 	);

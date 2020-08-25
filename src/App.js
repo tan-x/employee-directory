@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-// import logo from './logo.svg';
 import Search from './components/Search';
+import Header from './components/Header';
 // import Slide from 'react-reveal/Slide';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css';
@@ -10,6 +10,7 @@ function App() {
 
 	return (
 		<div className='App'>
+      <Header />
 			<Search search={search} setsearch={setSearch} />
 			{search && (
 				// <Slide top>
