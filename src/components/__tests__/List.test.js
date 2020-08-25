@@ -25,12 +25,12 @@ describe('Search', () => {
                 }
 			},
 		];
-		const { container, debug, getByTestId } = render(<List employees={dummyList} />);
+		const { container, debug, getByTestId } = render(<List employees={dummyList} order={{field: '', ascending: false}}/>);
 		// debug();
 		// Act
 		// Assert
 		expect(container.querySelector('#employee-list')).toBeTruthy();
-		expect(container.querySelector('#employee-list').childElementCount).toBe(dummyList.length);
+		expect(container.querySelector('#employee-list').childElementCount).toBe(dummyList.length + 1);
 	});
 
 	// test if search narrows using name

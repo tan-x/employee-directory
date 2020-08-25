@@ -39,6 +39,6 @@ describe('Search form', () => {
 		// Act
 		await userEvent.type(container.querySelector('#search-input'), 'Testy Tester');
 		// Assert
-		expect(getByTitle('search-display')).toHaveTextContent('Searching for Testy Tester');
+		expect(getByTitle('search-display')).toHaveTextContent('Searching for testy tester');
 	});
 })
