@@ -11,7 +11,7 @@ import App from './App';
 // });
 
 describe('Search form', () => {
-	test('Input value changes when user types', async () => {
+	test.only('Input value changes when user types', async () => {
 		// Arrange
 		
 	const { container, debug, getByPlaceholderText } = render(<App />);

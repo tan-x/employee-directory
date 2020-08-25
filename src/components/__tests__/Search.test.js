@@ -4,7 +4,7 @@ import { render, fireEvent, waitFor, screen, queries } from '@testing-library/re
 import userEvent from '@testing-library/user-event'
 import Search from '../Search';
 
-describe('Search', () => {
+xdescribe('Search', () => {
 	test('Search form rendered', async () => {
 		// Arrange
 		const { container, debug } = render(<Search />);
