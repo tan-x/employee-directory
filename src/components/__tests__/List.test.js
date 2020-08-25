@@ -8,8 +8,22 @@ describe('Search', () => {
 	test('List rendered with list items', async () => {
 		// Arrange
 		const dummyList = [
-			{ name: 'Testy Tester', email: 'testy@gmail.com', number: '5551098' },
-			{ name: 'Testy Tester', email: 'testy@gmail.com', number: '5551098' },
+			{
+				name: 'Testy Tester',
+				email: 'testy@gmail.com',
+                number: '5551098',
+                picture: {
+                    thumbnail: 'http://test.com',
+                }
+			},
+			{
+				name: 'Testy Tester',
+				email: 'testy@gmail.com',
+				number: '5551098',
+				picture: {
+                    thumbnail: 'http://test.com',
+                }
+			},
 		];
 		const { container, debug, getByTestId } = render(<List employees={dummyList} />);
 		// debug();

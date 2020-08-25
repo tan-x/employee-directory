@@ -3,9 +3,9 @@ import axios from 'axios';
 import Search from './components/Search';
 import Header from './components/Header';
 import List from './components/List';
-// import Slide from 'react-reveal/Slide';
-import './App.css';
+import Fade from 'react-reveal/Fade';
 import 'semantic-ui-css/semantic.min.css';
+import './App.css';
 
 function App() {
 	const [search, setSearch] = useState('');
@@ -13,13 +13,13 @@ function App() {
 
 	useEffect(() => {
 		axios.get('https://randomuser.me/api/?results=200&nat=us').then((res) => {
-      // console.log(res.data.results);
-      const short = [];
-      for (let i=0; i<5; i++) {
-        short.push(res.data.results[i])
-      }
-      console.log(short);
-      setEmployees(res.data.results);
+			// console.log(res.data.results);
+			const short = [];
+			for (let i = 0; i < 5; i++) {
+				short.push(res.data.results[i]);
+			}
+			console.log(short);
+			setEmployees(res.data.results);
 		});
 	}, []);
 
@@ -33,9 +33,9 @@ function App() {
 			<Header />
 			<Search search={search} setsearch={setSearch} />
 			{search && (
-				// <Slide top>
-				<h3 title='search-display'>Searching for {search}</h3>
-				// </Slide>
+				<Fade top>
+						<h3 title='search-display'>Searching for {search}</h3>
+				</Fade>
 			)}
 			<List employees={employees} />
 			{/* <header className='App-header'>

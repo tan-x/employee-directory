@@ -8,6 +8,7 @@ export default function List(props) {
 				console.log(employee, i);
 				return (
 					<ListItem
+                        img={employee.picture.thumbnail}
 						name={employee.name.first + ' ' + employee.name.last}
 						email={employee.email}
 						number={employee.phone}
