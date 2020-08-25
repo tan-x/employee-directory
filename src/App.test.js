@@ -9,6 +9,17 @@ import App from './App';
 // 	expect(linkElement).toBeInTheDocument();
 // });
 
+describe('Rendering items', () => {
+	test('Header rendered', async () => {
+		// Arrange
+		const { container, debug } = render(<App />);
+		// debug();
+		// Act
+		// Assert
+		expect(container.querySelector('#header')).toBeTruthy();
+    });
+})
+
 describe('Search form', () => {
 	test('Input value changes when user types', async () => {
 		// Arrange
