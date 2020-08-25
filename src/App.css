@@ -9,9 +9,10 @@ body #fonts{
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(to bottom, rgba(218, 0, 0, 0.068), rgba(113, 0, 158, 0.055));
+  background: linear-gradient(to bottom, rgba(15, 0, 218, 0.068), rgba(0, 95, 158, 0.055));
 }
 
 .App-logo {
@@ -61,7 +62,7 @@ h3 {
   width: 80vw;
   height: calc(90vh - 150px);
   max-width: 1000px;
-  margin-top: 5px;
+  margin: 5px 0 40px;
   border: 3px solid rgb(113, 0, 158);
   border-radius: 10px;
   overflow: auto;
@@ -78,4 +79,14 @@ h3 {
 
 h5 {
   margin: 4px!important
+}
+
+#logo {
+  cursor: pointer;
+  justify-content: flex-end;
+  margin: 8px;
+}
+
+.bi {
+  margin: 0 .2px -1px .75px;
 }

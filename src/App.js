@@ -3,6 +3,7 @@ import axios from 'axios';
 import Search from './components/Search';
 import Header from './components/Header';
 import List from './components/List';
+import Logo from './components/Logo';
 import Fade from 'react-reveal/Fade';
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';
@@ -41,6 +42,7 @@ function App() {
 				</Fade>
 			)}
 			<List employees={filter} />
+      <Logo />
 		</div>
 	);
 }
