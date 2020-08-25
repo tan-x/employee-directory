@@ -6,13 +6,13 @@ export default function ListItem(props) {
 		<Grid.Row id='list-item'>
 			<img src={props.img} />
 			<Grid.Column>
-				<h5 id='fonts'>{props.name}</h5>
+				<p id='fonts'>{props.name}</p>
 			</Grid.Column>
 			<Grid.Column>
-				<h5 id='fonts'>{props.email}</h5>
+				<p id='fonts'>{props.email}</p>
 			</Grid.Column>
 			<Grid.Column>
-				<h5>{props.number}</h5>
+				<p>{props.number}</p>
 			</Grid.Column>
 		</Grid.Row>
 	);
