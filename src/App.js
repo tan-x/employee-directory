@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import Search from './components/Search';
 import Header from './components/Header';
+import List from './components/List';
 // import Slide from 'react-reveal/Slide';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 
 function App() {
-	const [search, setSearch] = useState('');
+  const [search, setSearch] = useState('');
+  
+  const employees = [
+    { name: 'Testy Tester', email: 'testy@gmail.com', number: '5551098' },
+    { name: 'Testy Tester', email: 'testy@gmail.com', number: '5551098' },
+  ]
 
 	return (
 		<div className='App'>
@@ -19,6 +25,7 @@ function App() {
 					</h3>
 				// </Slide>
 			)}
+      <List employees={employees}/>
 			{/* <header className='App-header'>
 				<img src={logo} className='App-logo' alt='logo' />
 				<p>
