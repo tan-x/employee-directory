@@ -1,30 +1,12 @@
 import React from 'react';
 import axios from 'axios';
-import { render, fireEvent, waitFor, screen, queries } from '@testing-library/react';
+import { render, fireEvent, waitFor, screen, queries, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App, { API, fetchData } from './App';
-import { act } from 'react-dom/test-utils';
-
-// test('renders learn react link', () => {
-// 	const { getByText } = render(<App />);
-// 	const linkElement = getByText(/learn react/i);
-// 	expect(linkElement).toBeInTheDocument();
-// });
 // jest.mock('axios');
 
-describe('Rendering items', () => {
-	test('Header rendered', async () => {
-		// Arrange
-		const { container, debug } = render(<App />);
-		// debug();
-		// Act
-		// Assert
-		expect(container.querySelector('#header')).toBeTruthy();
-	});
-});
-
-describe('fetch data', () => {
-	test('fetches data successfully', async () => {
+describe('Fetch data', () => {
+	test('Fetches random user array successfully', async () => {
 		const { data } = await fetchData(API);
 		await expect(data.results.length).toBe(200);
 	});
@@ -53,5 +35,16 @@ describe('Search form', () => {
 		});
 		// Assert
 		expect(getByTitle('search-display')).toHaveTextContent('Searching for testy tester');
+	});
+});
+
+describe('Rendering items', () => {
+	test('Header rendered', async () => {
+		// Arrange
+		const { container, debug } = render(<App />);
+		// debug();
+		// Act
+		// Assert
+		expect(container.querySelector('#header')).toBeTruthy();
 	});
 });

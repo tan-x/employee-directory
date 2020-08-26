@@ -4,98 +4,94 @@ import Search from './components/Search';
 import Header from './components/Header';
 import List from './components/List';
 import Logo from './components/Logo';
-import Fade from 'react-reveal/Fade';
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';
 
 export const API = 'https://randomuser.me/api/?results=200&nat=us';
 export const fetchData = async (url) => {
-  return await axios.get(url)
-}
+	return await axios.get(url);
+};
 
 function App() {
-  const [search, setSearch] = useState('');
-  const [employees, setEmployees] = useState([]);
-  const [filter, setFilter] = useState([]);
-  const [order, setOrder] = useState({ ascending: false, field: '' });
+	const [search, setSearch] = useState('');
+	const [employees, setEmployees] = useState([]);
+	const [filter, setFilter] = useState([]);
+	const [order, setOrder] = useState({ ascending: false, field: '' });
 
-  useEffect(() => {
-    if (employees.length === 0) {
-      fetchData(API).then((res) => {
-        setEmployees(res.data.results);
-        setFilter(res.data.results);
-      });
-    } else {
-      setFilter(
-        employees.filter(
-          (item) =>
-            item.name.first.toLowerCase().includes(search) ||
-            item.name.last.toLowerCase().includes(search) ||
-            item.email.includes(search) ||
-            item.phone.includes(search)
-        )
-      );
-    }
-  }, [search]);
+	useEffect(() => {
+		if (employees.length === 0) {
+			fetchData(API).then((res) => {
+				setEmployees(res.data.results);
+				setFilter(res.data.results);
+			});
+		} else {
+			setFilter(
+				employees.filter(
+					(item) =>
+						item.name.first.toLowerCase().includes(search) ||
+						item.name.last.toLowerCase().includes(search) ||
+						item.email.includes(search) ||
+						item.phone.includes(search)
+				)
+			);
+		}
+	}, [search]);
 
-  function compare(a, b) {
-    let itemA, itemB;
-    if (order.field === 'name') {
-      itemA = a.name.first.toLowerCase();
-      itemB = b.name.first.toLowerCase();
-    } else if (order.field === 'email') {
-      itemA = a.email.toLowerCase();
-      itemB = b.email.toLowerCase();
-    } else if (order.field === 'phone') {
-      itemA = a.phone;
-      itemB = b.phone;
-    }
+	function compare(a, b) {
+		let itemA, itemB;
+		if (order.field === 'name') {
+			itemA = a.name.first.toLowerCase();
+			itemB = b.name.first.toLowerCase();
+		} else if (order.field === 'email') {
+			itemA = a.email.toLowerCase();
+			itemB = b.email.toLowerCase();
+		} else if (order.field === 'phone') {
+			itemA = a.phone;
+			itemB = b.phone;
+		}
+		let comparison = 0;
+		if (order.ascending) {
+			if (itemA > itemB) {
+				comparison = 1;
+			} else if (itemA < itemB) {
+				comparison = -1;
+			}
+		} else {
+			if (itemA > itemB) {
+				comparison = -1;
+			} else if (itemA < itemB) {
+				comparison = 1;
+			}
+		}
+		return comparison;
+	}
 
-    let comparison = 0;
-    if (order.ascending) {
-      if (itemA > itemB) {
-        comparison = 1;
-      } else if (itemA < itemB) {
-        comparison = -1;
-      }
-    } else {
-      if (itemA > itemB) {
-        comparison = -1;
-      } else if (itemA < itemB) {
-        comparison = 1;
-      }
-    }
-    return comparison;
-  }
+	const sort = (e) => {
+		if (e.target.id === 'sort-name') {
+			setOrder({ ...order, ascending: !order.ascending, field: 'name' });
+		} else if (e.target.id === 'sort-email') {
+			setOrder({ ...order, ascending: !order.ascending, field: 'email' });
+		} else if (e.target.id === 'sort-phone') {
+			setOrder({ ...order, ascending: !order.ascending, field: 'phone' });
+		}
+	};
 
-  const sort = (e) => {
-    if (e.target.id === 'sort-name') {
-      setOrder({ ...order, ascending: !order.ascending, field: 'name' });
-    } else if (e.target.id === 'sort-email') {
-      setOrder({ ...order, ascending: !order.ascending, field: 'email' });
-    } else if (e.target.id === 'sort-phone') {
-      setOrder({ ...order, ascending: !order.ascending, field: 'phone' });
-    }
-  };
+	useEffect(() => {
+		if (order.field !== '') {
+			const newFilter = filter.sort(compare);
+			setFilter([...newFilter]);
+		}
+	}, [order]);
 
-  useEffect(() => {
-    if (order.field !== '') {
-      const newFilter = filter.sort(compare);
-      setFilter([...newFilter]);
-    }
-  }, [order]);
-
-  return (
-    <div className='App'>
-      <Header />
-      <Search search={search} setsearch={setSearch} />
-      <Fade collapse top when={search}>
-        <h3 title='search-display'>Searching for {search}</h3>
-      </Fade>
-      <List employees={filter} sort={sort} order={order}/>
-      <Logo />
-    </div>
-  );
+	return (
+		<div className='App'>
+			<Header />
+			<Search search={search} setsearch={setSearch} />
+			<p title='search-display'>{search && `Searching for ${search}`}</p>
+			<List employees={filter} sort={sort} order={order} />
+			<Logo />
+		</div>
+	);
 }
 
 export default App;
