@@ -8,6 +8,11 @@ import Fade from 'react-reveal/Fade';
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';
 
+export const API = 'https://randomuser.me/api/?results=200&nat=us';
+export const fetchData = async (url) => {
+  return await axios.get(url)
+}
+
 function App() {
   const [search, setSearch] = useState('');
   const [employees, setEmployees] = useState([]);
@@ -16,7 +21,7 @@ function App() {
 
   useEffect(() => {
     if (employees.length === 0) {
-      axios.get('https://randomuser.me/api/?results=200&nat=us').then((res) => {
+      fetchData(API).then((res) => {
         setEmployees(res.data.results);
         setFilter(res.data.results);
       });
