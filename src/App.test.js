@@ -4,6 +4,24 @@ import { render, fireEvent, waitFor, screen, queries, act } from '@testing-libra
 import userEvent from '@testing-library/user-event';
 import App, { API, fetchData } from './App';
 // jest.mock('axios');
+const dummyList = [
+	{
+		name: 'Testy Tester',
+		email: 'testy@gmail.com',
+		number: '5551098',
+		picture: {
+			thumbnail: 'http://test.com',
+		}
+	},
+	{
+		name: 'Testy Tester',
+		email: 'testy@gmail.com',
+		number: '5551098',
+		picture: {
+			thumbnail: 'http://test.com',
+		}
+	},
+];
 
 describe('Fetch data', () => {
 	test('Fetches random user array successfully', async () => {
@@ -15,7 +33,7 @@ describe('Fetch data', () => {
 describe('Search form', () => {
 	test('Input value changes when user types', async () => {
 		// Arrange
-		const { container, debug, getByPlaceholderText } = render(<App />);
+		const { container, debug } = render(<App defFilter={dummyList}/>);
 		// debug();
 		// Act
 		act(() => {
@@ -27,7 +45,7 @@ describe('Search form', () => {
 
 	test('Displayed search name changes on user typing', async () => {
 		// Arrange
-		const { container, debug, getByPlaceholderText, getByTitle } = render(<App />);
+		const { container, debug, getByTitle } = render(<App defFilter={dummyList}/>)
 		// debug();
 		// Act
 		act(() => {
@@ -41,7 +59,7 @@ describe('Search form', () => {
 describe('Rendering items', () => {
 	test('Header rendered', async () => {
 		// Arrange
-		const { container, debug } = render(<App />);
+		const { container, debug } = render(<App defFilter={dummyList}/>);
 		// debug();
 		// Act
 		// Assert
