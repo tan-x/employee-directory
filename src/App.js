@@ -68,8 +68,8 @@ const useSort = (order, filter, setFilter) => {
 
 function App(props) {
   const [search, setSearch] = useState('');
-  const [employees, setEmployees] = useState([]);
-  const [filter, setFilter] = useState(props.defFilter);
+  const [employees, setEmployees] = useState(props.defFilter);
+  const [filter, setFilter] = useState([]);
   const [order, setOrder] = useState({ ascending: false, field: '' });
   useFilter(employees, setFilter, search);
   useSort(order, filter, setFilter);
@@ -87,7 +87,7 @@ function App(props) {
   return (
     <div className='App'>
       <Header />
-      {filter.length === 0 ? <Fetch url={API} employees={employees} setEmployees={setEmployees} setFilter={setFilter} /> : ( <>
+      {employees.length === 0 ? <Fetch url={API} employees={employees} setEmployees={setEmployees} setFilter={setFilter} /> : ( <>
       <Search search={search} setsearch={setSearch} />
       <p title='search-display'>{search && `Searching for ${search}`}</p>
       <List employees={filter} sort={sort} order={order} /> </>)}
