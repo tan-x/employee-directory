@@ -32,16 +32,8 @@ const useFilter = (employees, setFilter, search) => {
 const useSort = (order, filter, setFilter) => {
   function compare(a, b) {
     let itemA, itemB;
-    if (order.field === 'name') {
-      itemA = a.name.first.toLowerCase();
-      itemB = b.name.first.toLowerCase();
-    } else if (order.field === 'email') {
-      itemA = a.email.toLowerCase();
-      itemB = b.email.toLowerCase();
-    } else if (order.field === 'phone') {
-      itemA = a.phone;
-      itemB = b.phone;
-    }
+    order.field === 'name' ? (itemA = a[order.field].first) : (itemA = a[order.field]);
+    order.field === 'name' ? (itemB = b[order.field].first) : (itemB = b[order.field]);
     let comparison = 0;
     if (itemA > itemB) {
       order.ascending ? (comparison = 1) : (comparison = -1);
@@ -52,8 +44,7 @@ const useSort = (order, filter, setFilter) => {
   }
   useEffect(() => {
     if (order.field !== '') {
-      const newFilter = filter.sort(compare);
-      setFilter([...newFilter]);
+      setFilter([...filter.sort(compare)]);
     }
   }, [order]);
 };
