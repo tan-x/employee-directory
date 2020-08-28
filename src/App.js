@@ -43,18 +43,10 @@ const useSort = (order, filter, setFilter) => {
       itemB = b.phone;
     }
     let comparison = 0;
-    if (order.ascending) {
-      if (itemA > itemB) {
-        comparison = 1;
-      } else if (itemA < itemB) {
-        comparison = -1;
-      }
-    } else {
-      if (itemA > itemB) {
-        comparison = -1;
-      } else if (itemA < itemB) {
-        comparison = 1;
-      }
+    if (itemA > itemB) {
+      order.ascending ? (comparison = 1) : (comparison = -1);
+    } else if (itemA < itemB) {
+      order.ascending ? (comparison = -1) : (comparison = 1);
     }
     return comparison;
   }
@@ -87,10 +79,15 @@ function App(props) {
   return (
     <div className='App'>
       <Header />
-      {employees.length === 0 ? <Fetch url={API} employees={employees} setEmployees={setEmployees} setFilter={setFilter} /> : ( <>
-      <Search search={search} setsearch={setSearch} />
-      <p title='search-display'>{search && `Searching for ${search}`}</p>
-      <List employees={filter} sort={sort} order={order} /> </>)}
+      {employees.length === 0 ? (
+        <Fetch url={API} employees={employees} setEmployees={setEmployees} setFilter={setFilter} />
+      ) : (
+        <>
+          <Search search={search} setsearch={setSearch} />
+          <p title='search-display'>{search && `Searching for ${search}`}</p>
+          <List employees={filter} sort={sort} order={order} />{' '}
+        </>
+      )}
       <Logo />
     </div>
   );
