@@ -34,54 +34,51 @@ describe('Fetch data', () => {
 
 describe('Search form', () => {
   test('Input value changes when user types', async () => {
-    // Arrange
-    const { container, debug } = render(<App defFilter={dummyList} />);
-    // debug();
-    // Act
+    const { container } = render(<App defFilter={dummyList} />);
     act(() => {
       userEvent.type(container.querySelector('#search-input'), 'Hello World!');
     });
-    // Assert
     expect(container.querySelector('#search-input')).toHaveValue('Hello World!');
   });
 
   test('Displayed search name changes on user typing', async () => {
-    // Arrange
-    const { container, debug, getByTitle } = render(<App defFilter={dummyList} />);
-    // debug();
-    // Act
+    const { container, getByTitle } = render(<App defFilter={dummyList} />);
     act(() => {
       userEvent.type(container.querySelector('#search-input'), 'Testy Tester');
     });
-    // Assert
     expect(getByTitle('search-display')).toHaveTextContent('Searching for testy tester');
+  });
+
+  test('Items filtered by search', async () => {
+    const { container, getByTestId } = render(<App defFilter={dummyList} />);
+    // user clicks sort for ascending
+    act(() => {
+      userEvent.type(container.querySelector('#search-input'), '555');
+    });
+    expect(container.querySelector('#employee-scroll').firstChild).toHaveTextContent('555');
+	// user clicks sort again for descending
+    act(() => {
+		userEvent.type(container.querySelector('#search-input'), 'Tester');
+    });
+    expect(container.querySelector('#employee-scroll').firstChild).toHaveTextContent('Tester');
   });
 });
 
 describe('Rendering items', () => {
   test('Header rendered', () => {
-    // Arrange
-    const { container, debug } = render(<App defFilter={dummyList} />);
-    // debug();
-    // Act
-    // Assert
+    const { container } = render(<App defFilter={dummyList} />);
     expect(container.querySelector('#header')).toBeTruthy();
   });
 
   test('Logo rendered', () => {
-    // Arrange
-    const { container, debug } = render(<App defFilter={dummyList} />);
-    // debug();
-    // Act
-    // Assert
+    const { container } = render(<App defFilter={dummyList} />);
     expect(container.querySelector('#logo')).toBeTruthy();
   });
 });
 
-describe('Sorting items', () => {
+describe('Sorting list items', () => {
   test('Items sorted by name', async () => {
-    const { container, debug, getByTestId } = render(<App defFilter={dummyList} />);
-    // debug();
+    const { container, getByTestId } = render(<App defFilter={dummyList} />);
     // user clicks sort for ascending
     act(() => {
       fireEvent.click(getByTestId('sort-name'));
@@ -97,8 +94,41 @@ describe('Sorting items', () => {
   });
 
   test('Items sorted by phone', async () => {
-    const { container, debug, getByTestId } = render(<App defFilter={dummyList} />);
-    // debug();
+    const { container, getByTestId } = render(<App defFilter={dummyList} />);
+    // user clicks sort for ascending
+    act(() => {
+      fireEvent.click(getByTestId('sort-phone'));
+    });
+    expect(container.querySelector('#employee-scroll').firstChild).toHaveTextContent('444');
+    expect(container.querySelector('#employee-scroll').lastChild).toHaveTextContent('555');
+	// user clicks sort again for descending
+    act(() => {
+      fireEvent.click(getByTestId('sort-phone'));
+    });
+    expect(container.querySelector('#employee-scroll').firstChild).toHaveTextContent('555');
+    expect(container.querySelector('#employee-scroll').lastChild).toHaveTextContent('444');
+  });
+});
+
+describe('Sorting list items', () => {
+  test('Items sorted by name', async () => {
+    const { container, getByTestId } = render(<App defFilter={dummyList} />);
+    // user clicks sort for ascending
+    act(() => {
+      fireEvent.click(getByTestId('sort-name'));
+    });
+    expect(container.querySelector('#employee-scroll').firstChild).toHaveTextContent('Testy');
+    expect(container.querySelector('#employee-scroll').lastChild).toHaveTextContent('Zesty');
+	// user clicks sort again for descending
+    act(() => {
+      fireEvent.click(getByTestId('sort-name'));
+    });
+    expect(container.querySelector('#employee-scroll').firstChild).toHaveTextContent('Zesty');
+    expect(container.querySelector('#employee-scroll').lastChild).toHaveTextContent('Testy');
+  });
+
+  test('Items sorted by phone', async () => {
+    const { container, getByTestId } = render(<App defFilter={dummyList} />);
     // user clicks sort for ascending
     act(() => {
       fireEvent.click(getByTestId('sort-phone'));

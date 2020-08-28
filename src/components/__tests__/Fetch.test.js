@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import { render, cleanup, waitForElement } from '@testing-library/react';
 import axios from 'axios';
-import Fetch from '../Fetch';
+import Fetch, { API, useAxios } from '../Fetch';
 
-jest.mock('axios');
+// jest.mock('axios');
 
 afterEach(cleanup);
 
 xtest('fetches and displays data', async () => {
-  const url = 'greeting';
-  const [employees, setEmployees] = useState([]);
-  const [filter, setFilter] = useState([]);
-  const { getByTestId } = render(
-    <Fetch url={url} employees={employees} setEmployees={setEmployees} setFilter={setFilter} />
-  );
+  let employees = [];
+  let filter = [];
+  const setEmployees = jest.fn();
+  const setFilter = jest.fn();
 
-  expect(getByTestId('testing')).toBeTruthy();
+  // wrapper.instance().setEmployees = jest.fn();
+  await expect(employees.length).toBe(200)
+  // await expect(getByTestId('testing')).toBeTruthy();
+  // await expect(employees.length).toBe(200);
 });
