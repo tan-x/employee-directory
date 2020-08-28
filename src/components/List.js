@@ -5,11 +5,11 @@ import { TiArrowSortedDown, TiArrowSortedUp, TiArrowUnsorted } from 'react-icons
 
 const columns = ['name', 'email', 'phone'];
 
-const sortColumns = (sort, field, ascending) => {
+const sortColumn = (sort, field, ascending) => {
   return columns.map((item, i) => {
     return (
       <Grid.Column key={i}>
-        <p id={`sort-${item}`} className='clickable' onClick={sort}>
+        <p id={`sort-${item}`} data-testid={`sort-${item}`} className='clickable' onClick={sort}>
           {item.charAt(0).toUpperCase() + item.slice(1)}{' '}
           {field === item ? (
             ascending ? (
@@ -47,7 +47,7 @@ export default function List(props) {
         <Grid.Column>
           <p>Sort</p>
         </Grid.Column>
-        {sortColumns(props.sort, props.order.field, props.order.ascending)}
+        {sortColumn(props.sort, props.order.field, props.order.ascending)}
       </Grid.Row>
       <div id='employee-scroll'>{renderList(props.employees)}</div>
     </div>

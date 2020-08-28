@@ -59,13 +59,7 @@ function App(props) {
   useSort(order, filter, setFilter);
 
   const sort = (e) => {
-    if (e.target.id === 'sort-name') {
-      setOrder({ ...order, ascending: !order.ascending, field: 'name' });
-    } else if (e.target.id === 'sort-email') {
-      setOrder({ ...order, ascending: !order.ascending, field: 'email' });
-    } else if (e.target.id === 'sort-phone') {
-      setOrder({ ...order, ascending: !order.ascending, field: 'phone' });
-    }
+    setOrder({ ...order, ascending: !order.ascending, field: e.target.id.split('-')[1] })
   };
 
   return (
