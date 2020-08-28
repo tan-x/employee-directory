@@ -31,13 +31,14 @@ const useFilter = (employees, setFilter, search) => {
 
 const useSort = (order, filter, setFilter) => {
   function compare(a, b) {
-    let itemA, itemB;
-    order.field === 'name' ? (itemA = a[order.field].first) : (itemA = a[order.field]);
-    order.field === 'name' ? (itemB = b[order.field].first) : (itemB = b[order.field]);
+    let items = [];
+    order.field === 'name'
+      ? (items = [a[order.field].first, b[order.field].first])
+      : (items = [a[order.field], b[order.field]]);
     let comparison = 0;
-    if (itemA > itemB) {
+    if (items[0] > items[1]) {
       order.ascending ? (comparison = 1) : (comparison = -1);
-    } else if (itemA < itemB) {
+    } else if (items[0] < items[1]) {
       order.ascending ? (comparison = -1) : (comparison = 1);
     }
     return comparison;
