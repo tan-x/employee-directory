@@ -3,69 +3,53 @@ import ListItem from './ListItem';
 import { Grid } from 'semantic-ui-react';
 import { TiArrowSortedDown, TiArrowSortedUp, TiArrowUnsorted } from 'react-icons/ti';
 
+const columns = ['name', 'email', 'phone'];
+
+const sortColumns = (sort, field, ascending) => {
+  return columns.map((item, i) => {
+    return (
+      <Grid.Column key={i}>
+        <p id={`sort-${item}`} className='clickable' onClick={sort}>
+          {item.charAt(0).toUpperCase() + item.slice(1)}{' '}
+          {field === item ? (
+            ascending ? (
+              <TiArrowSortedUp />
+            ) : (
+              <TiArrowSortedDown />
+            )
+          ) : (
+            <TiArrowUnsorted />
+          )}
+        </p>
+      </Grid.Column>
+    );
+  });
+};
+
+const renderList = (employees) => {
+  return employees.map((employee, i) => {
+    return (
+      <ListItem
+        img={employee.picture.thumbnail}
+        name={employee.name.first + ' ' + employee.name.last}
+        email={employee.email}
+        number={employee.phone}
+        key={i}
+      />
+    );
+  });
+};
+
 export default function List(props) {
-	return (
-		<div id='employee-list'>
-			<Grid.Row id='sort'>
-				<Grid.Column>
-					<p>Sort</p>
-				</Grid.Column>
-				<Grid.Column>
-					<p id='sort-name' className='clickable' onClick={props.sort}>
-						Name{' '}
-						{props.order.field === 'name' ? (
-							props.order.ascending ? (
-								<TiArrowSortedUp />
-							) : (
-								<TiArrowSortedDown />
-							)
-						) : (
-							<TiArrowUnsorted />
-						)}
-					</p>
-				</Grid.Column>
-				<Grid.Column>
-					<p id='sort-email' className='clickable' onClick={props.sort}>
-						Email{' '}
-						{props.order.field === 'email' ? (
-							props.order.ascending ? (
-								<TiArrowSortedUp />
-							) : (
-								<TiArrowSortedDown />
-							)
-						) : (
-							<TiArrowUnsorted />
-						)}
-					</p>
-				</Grid.Column>
-				<Grid.Column id='number'>
-					<p id='sort-phone' className='clickable' onClick={props.sort}>
-						Phone{' '}
-						{props.order.field === 'phone' ? (
-							props.order.ascending ? (
-								<TiArrowSortedUp />
-							) : (
-								<TiArrowSortedDown />
-							)
-						) : (
-							<TiArrowUnsorted />
-						)}
-					</p>
-				</Grid.Column>
-			</Grid.Row>
-			<div id='employee-scroll'>
-				{props.employees.map((employee, i) => {
-					return (
-						<ListItem
-							img={employee.picture.thumbnail}
-							name={employee.name.first + ' ' + employee.name.last}
-							email={employee.email}
-							number={employee.phone}
-							key={i}
-						/>
-					);
-				})}
-			</div>
-		</div>
-	);
+  return (
+    <div id='employee-list'>
+      <Grid.Row id='sort'>
+        <Grid.Column>
+          <p>Sort</p>
+        </Grid.Column>
+        {sortColumns(props.sort, props.order.field, props.order.ascending)}
+      </Grid.Row>
+      <div id='employee-scroll'>{renderList(props.employees)}</div>
+    </div>
+  );
 }
