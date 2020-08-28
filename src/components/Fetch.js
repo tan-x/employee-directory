@@ -6,7 +6,7 @@ export const fetchData = async (url) => {
   return await axios.get(url);
 };
 
-const useAxios = (employees, setEmployees, setFilter, url) => {
+export const useAxios = (employees, setEmployees, setFilter, url) => {
   useEffect(() => {
     if (employees.length === 0) {
       fetchData(url).then((res) => {
