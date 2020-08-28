@@ -4,23 +4,18 @@ import Search from './components/Search';
 import Header from './components/Header';
 import List from './components/List';
 import Logo from './components/Logo';
-import Fade from 'react-reveal/Fade';
+import Fetch from './components/Fetch';
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';
 
-function App() {
-  const [search, setSearch] = useState('');
-  const [employees, setEmployees] = useState([]);
-  const [filter, setFilter] = useState([]);
-  const [order, setOrder] = useState({ ascending: false, field: '' });
+export const API = 'https://randomuser.me/api/?results=200&nat=us';
+export const fetchData = async (url) => {
+  return await axios.get(url);
+};
 
+const useFilter = (employees, setFilter, search) => {
   useEffect(() => {
-    if (employees.length === 0) {
-      axios.get('https://randomuser.me/api/?results=200&nat=us').then((res) => {
-        setEmployees(res.data.results);
-        setFilter(res.data.results);
-      });
-    } else {
+    if (employees.length !== 0) {
       setFilter(
         employees.filter(
           (item) =>
@@ -32,36 +27,36 @@ function App() {
       );
     }
   }, [search]);
+};
 
+const useSort = (order, filter, setFilter) => {
   function compare(a, b) {
-    let itemA, itemB;
-    if (order.field === 'name') {
-      itemA = a.name.first.toLowerCase();
-      itemB = b.name.first.toLowerCase();
-    } else if (order.field === 'email') {
-      itemA = a.email.toLowerCase();
-      itemB = b.email.toLowerCase();
-    } else if (order.field === 'phone') {
-      itemA = a.phone;
-      itemB = b.phone;
-    }
-
+    let items = [];
+    order.field === 'name'
+      ? (items = [a[order.field].first, b[order.field].first])
+      : (items = [a[order.field], b[order.field]]);
     let comparison = 0;
-    if (order.ascending) {
-      if (itemA > itemB) {
-        comparison = 1;
-      } else if (itemA < itemB) {
-        comparison = -1;
-      }
-    } else {
-      if (itemA > itemB) {
-        comparison = -1;
-      } else if (itemA < itemB) {
-        comparison = 1;
-      }
+    if (items[0] > items[1]) {
+      order.ascending ? (comparison = 1) : (comparison = -1);
+    } else if (items[0] < items[1]) {
+      order.ascending ? (comparison = -1) : (comparison = 1);
     }
     return comparison;
   }
+  useEffect(() => {
+    if (order.field !== '') {
+      setFilter([...filter.sort(compare)]);
+    }
+  }, [order]);
+};
+
+function App(props) {
+  const [search, setSearch] = useState('');
+  const [employees, setEmployees] = useState(props.defFilter);
+  const [filter, setFilter] = useState([]);
+  const [order, setOrder] = useState({ ascending: false, field: '' });
+  useFilter(employees, setFilter, search);
+  useSort(order, filter, setFilter);
 
   const sort = (e) => {
     if (e.target.id === 'sort-name') {
@@ -73,21 +68,18 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    if (order.field !== '') {
-      const newFilter = filter.sort(compare);
-      setFilter([...newFilter]);
-    }
-  }, [order]);
-
   return (
     <div className='App'>
       <Header />
-      <Search search={search} setsearch={setSearch} />
-      <Fade collapse top when={search}>
-        <h3 title='search-display'>Searching for {search}</h3>
-      </Fade>
-      <List employees={filter} sort={sort} order={order}/>
+      {employees.length === 0 ? (
+        <Fetch url={API} employees={employees} setEmployees={setEmployees} setFilter={setFilter} />
+      ) : (
+        <>
+          <Search search={search} setsearch={setSearch} />
+          <p title='search-display'>{search && `Searching for ${search}`}</p>
+          <List employees={filter} sort={sort} order={order} />{' '}
+        </>
+      )}
       <Logo />
     </div>
   );
